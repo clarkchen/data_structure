@@ -2,6 +2,7 @@ package basic;
 
 import java.util.ArrayList;
 
+
 public class GraphPoint {
 	
 	public int index;
@@ -35,6 +36,7 @@ public class GraphPoint {
 		}
 		cur.next = temp;
 	}
+	
 	public void delEdge(int e)
 	{
 		EdgePoint pre = firstEdge;
@@ -49,9 +51,8 @@ public class GraphPoint {
 			ep =ep.next;
 		}
 		pre.next = null;
-		
-		
 	}
+
 
 	
 	

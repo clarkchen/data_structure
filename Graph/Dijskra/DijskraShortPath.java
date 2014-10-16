@@ -34,14 +34,15 @@ public class DijskraShortPath {
 		int [] visited = new int[g.count];
 		int [] pre  = new int[g.count];
 		int i,j;
-		dis[source] =  0;
-		visited[source] = 1;
-		for(i = 1;i<dis.length;i++)
+		
+		for(i = 0;i<dis.length;i++)
 		{
 			visited [i] = 0;
 			dis[i] = Integer.MAX_VALUE;
 			pre [i] =-1;
 		}
+		dis[source] =  0;
+		visited[source] = 1;
 		int k=source;
 		for(i=0;i<g.count;i++)
 		{
@@ -55,8 +56,8 @@ public class DijskraShortPath {
 					pre [j] = k;
 				}
 			}
-			int min =Integer.MAX_VALUE;
 			
+			int min =Integer.MAX_VALUE;
 			for(j = 0;j<dis.length;j++)
 			{
 				if(visited[j] == 0 && min > dis[j])
@@ -65,9 +66,10 @@ public class DijskraShortPath {
 					k = j;
 				}
 			}
-			visited[k] = 1;
-			rt.addEdge(k,pre[k] , g.AdjacentMatrix[pre[k]][k]);
-			
+			if(min<Integer.MAX_VALUE){
+				visited[k] = 1;
+				rt.addEdge(k,pre[k] , g.AdjacentMatrix[pre[k]][k]);
+			}
 		}
 		return rt;
 	}

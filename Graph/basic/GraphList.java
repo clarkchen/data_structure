@@ -60,6 +60,15 @@ public class GraphList {
 	 	e.in++;
  
 	}
+	public void addEdge(int start, int end ,int weight, Boolean undir)
+	{
+		this.addEdge(start, end, weight);
+		if(undir==true)
+		{
+			this.addEdge(end,start , weight);
+		}
+		 
+	}
 	public void clearEdge(int start)
 	{
 		GraphPoint cur = this.getPoint(start);
