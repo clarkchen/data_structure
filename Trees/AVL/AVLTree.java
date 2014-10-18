@@ -17,6 +17,8 @@ public class AVLTree {
 		else if(cur.value>v) return search(cur.l, v);	
 		return search(cur.r, v);
 	}
+	
+	//找右子树的最左子树
 	AvlPoint findDPointR(AvlPoint cur)
 	{
 		if(cur.l == null) return cur;
@@ -27,6 +29,7 @@ public class AVLTree {
 		
 	}
 	
+	//找左子树的最右子树
 	AvlPoint findDPointL(AvlPoint cur)
 	{
 		if(cur.r == null) return cur;
@@ -86,6 +89,7 @@ public class AVLTree {
 		if(temp!=cur&&root==cur) root =temp;
 		return temp;
 	}
+	
 	AvlPoint insert(AvlPoint cur , int v)
 	{
 		if(cur==null)
@@ -160,20 +164,15 @@ public class AVLTree {
 	}
 	AvlPoint RoateRL(AvlPoint A)
 	{
-		AvlPoint B = A.r;
-		RoateR(B);
+		RoateR(A.r);
 		return RoateL(A);
 	}
 	
 	AvlPoint RoateLR(AvlPoint A)
 	{
-		AvlPoint B = A.l;
-		RoateL(B);
+		RoateL(A.l);
 		return RoateR(A);
 	}
-
-	
-	
 	
 	//this method is clear and works well 
 	//it take advantage of the Recursion as the parent

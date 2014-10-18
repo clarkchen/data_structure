@@ -155,7 +155,6 @@ public class Tree {
 		recoverVisited(Root.right);
 	}
 	
-	//暴力方法，会有非常多的重复点，而且并不是真正模拟 递归的调用方法
 	public void midOrder2(Node Root)
 	{
 		if(Root==null) return;
@@ -167,19 +166,19 @@ public class Tree {
 		while(!s.isEmpty())
 		{
 			cur = s.pop();
-			
-			if(cur.right!=null && cur.right.visited==0) s.push(cur.right);
-			
-			if(cur.visited==0) s.push(cur);
-			
-			if(cur.left!=null && cur.left.visited ==0) {s.push(cur.left);}
-			
-			if((cur.left==null&& cur.right==null) || (cur.left.visited==1 ))
+			if(cur.left==null|| cur.left.visited==1)
+				visit(cur);
+			else 
 			{
-				if(cur.visited==0) 
-					visit(cur);
+				if(cur.right!=null) s.push(cur.right);
+				s.push(cur);
+				s.push(cur.left);
 			}
 		}
+	}
+	boolean sonsVisited(Node root)
+	{
+		return (root.left==null||root.left.visited==1) && (root.right==null||root.right.visited==1);
 	}
 	public void postOrder2(Node Root)
 	{
@@ -192,16 +191,19 @@ public class Tree {
 		while(!s.isEmpty())
 		{
 			cur = s.pop();
-			if(cur.visited==0) s.push(cur);
-			if(cur.right!=null && cur.right.visited==0) s.push(cur.right);
-			if(cur.left!=null && cur.left.visited ==0) {s.push(cur.left);}
-			
-			
-			if((cur.left==null&& cur.right==null) || (cur.left.visited==1 ))
+			if((cur.left==null&& cur.right==null)||sonsVisited(cur))
 			{
 				if(cur.visited==0) 
 					visit(cur);
+			}			
+			else 
+			{
+				s.push(cur);
+				if(cur.right!=null && cur.right.visited==0) s.push(cur.right);
+				if(cur.left!=null && cur.left.visited ==0) {s.push(cur.left);}
 			}
+			
+		
 		}
 	}
 	public static void testOrders(Tree t)
@@ -217,11 +219,14 @@ public class Tree {
 		System.out.println("\n中序递归");
 		t.midOrder(t.root);
 		System.out.println("\n中序非递归");
+		t.midOrder2(t.root);
+		System.out.println("\n中序非递归");
 		t.midOrder3(t.root);
 		
 		System.out.println("\n后序递归");
 		t.postOrder(t.root);
-		
+		System.out.println("\n后序非递归");
+		t.postOrder2(t.root);
 		System.out.println("\n后序非递归");
 		t.postOrder3(t.root);
 		
