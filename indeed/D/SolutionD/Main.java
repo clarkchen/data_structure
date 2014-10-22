@@ -1,19 +1,72 @@
 package D.SolutionD;
 
 import java.util.*;
+
 public class Main{
 	class Node{
 		int v,k,dep;
 		ArrayList<Node> sons;
+	
+		//和真实值之间的差距
+		long margin;
+		
+		//记录该分支上能取的k=1时的点
+		int ava=-1;
+		
+		//最小记录
+		ArrayList<Node> minSon = new ArrayList<Node>();
+		long min=Long.MAX_VALUE;
+		
+		
 		public Node(int v,int k,int dep)
 		{
 			this.v = v;
 			this.k = k;
 			this.dep = dep;
-			
+			margin = 0;
 			sons = new ArrayList<Node>();
+			
 		}
+		public Node(int v,int k,int dep,long pre, int f)
+		{
+			this.v = v;
+			this.k = k;
+			this.dep = dep;
+			margin = pre + (v-f) * tens(dep);
+			sons = new ArrayList<Node>();			
+		}
+		public Node(int v,int k,int dep,long pre, int f, int ava)
+		{
+			this.v = v;
+			this.k = k;
+			this.dep = dep;
+			margin = pre + (v-f) * tens(dep);
+			sons = new ArrayList<Node>();	
+			this.ava = ava;
+		}
+		
+		//used for debuging
+		public long getvalue()
+		{
+			
+			return (A+margin)/tens(dep);
+		}
+		
+		//添加子节点的同时，记录最小值
+		public void addSon(Node son)
+		{
+			if(son==null) return;
+			
+			if(Math.abs(son.margin)<=min){ 
+				min = Math.abs(son.margin);
+				minSon.add(son);
+			}
+			sons.add(son);
+		}
+		
+	
 	}
+	
 	//10^n
 	long tens(int n)
 	{
@@ -33,18 +86,9 @@ public class Main{
 	//获取字符长度
 	int getLen(long A)
 	{
-		
-		if(A==0) return 1;
-		long temp = A;
-		int i=0;
-		while(temp>0) 
-		{
-			temp /=10;i++;
-		}
-			
-		return i;
+		return As.length();
 	}
-	// return the i th element of A
+	// return the i th element of A10
 	int getVbyindex(int i)
 	{
 		return As.charAt(As.length()-i)-'0' ;
@@ -59,104 +103,134 @@ public class Main{
 		}
 		return rt.size();
 	}
+	
+	//BFS + 剪枝
 	Node createTree()
 	{
 		int len  = getLen(A);
 		Node empty = new Node(0, K, len);
 		if(len<=K) return empty;
 		if(numTypes(A)<=K) return empty;
-		Queue<Node> q = new LinkedList<Main.Node>();
+		
+		Queue<Node> q = new LinkedList<Node>();
 		q.offer(empty);
 		Node cur = empty;
 		
 		ArrayList<Integer> ava = new ArrayList<Integer>();
-		
-		for(int i=len;i>0;i--)
+		int i;
+		for( i=len;i>0;i--)
 		{
+			int f = getVbyindex(i);
+			long layerMin  = Long.MAX_VALUE;
+			ArrayList<Node> Layer =  new ArrayList<Node>();
+			int k=Integer.MIN_VALUE;
 			while(!q.isEmpty()&& cur.dep==i)
 			{
 				cur = q.poll();
-				int k = cur.k;
+				k = cur.k;
+				
 				if(k>1)
 				{
-					int f = getVbyindex(i);
 					Node nn;
 					if(ava.contains(f))
 					{ 
-						nn =  new Node(f,k,i-1);
+						nn =  new Node(f,k,i-1,cur.margin,f);
 					}
 					else {
-						nn= new Node(f,k-1,i-1);
+						nn= new Node(f,k-1,i-1,cur.margin,f);
 						ava.add(f);
 					}
-					q.offer(nn);cur.sons.add(nn);
+					q.offer(nn);cur.addSon(nn);
 				}
 				else if(k==1)
 				{
 					Node nn;
 					for(int j=0;j<=9;j++)
 					{
+						nn =null;
 						if(ava.contains(j))
 						{
-							nn = new Node(j, k, i-1);
+							nn = new Node(j, k, i-1,cur.margin,f);
+							cur.addSon(nn);
 						}
-						else if(i==len && j==0)
+						else if(i==len && j==0 && f==1)
 						{
-							nn = new Node(0,k,i-1);
+							if(getVbyindex(i-1)==0){
+								nn = new Node(0,k,i-1,cur.margin,f,j);
+								cur.addSon(nn);
+							}
 						}
 						else 
 						{
-							nn = new Node(j,k-1,i-1);
+							nn = new Node(j,k-1,i-1,cur.margin,f,j);
+							cur.addSon(nn);
 						}
-						q.offer(nn);cur.sons.add(nn);
+					
 					}
+					if((len-i)<empty.k)
+						for(Node n: cur.sons) q.offer(n);
+					else 
+						Layer.addAll(cur.minSon);
 				}
 				else if(k==0)
 				{
-					Node nn;
 					for(int j=0;j<=9;j++)
 					{
-						if(ava.contains(j) || j==cur.v )
+						if(ava.contains(j)||j== cur.ava)
 						{
-							nn = new Node(j, k, i-1);
-							q.offer(nn);cur.sons.add(nn);
+							cur.addSon(new Node(j, k, i-1,cur.margin,f,cur.ava));
 						}
 						
 					}
+					
+					Layer.addAll(cur.minSon);
+					 
 				}
-				
 				cur = q.peek();
-				
+			}
+			if(Layer.size()>0){
+				for(int m=0;m<5;m++){
+					long tempMin=  Long.MAX_VALUE;
+					for(Node n: Layer)
+					{
+						if(!q.contains(n)&&Math.abs(n.margin)<tempMin)
+						{
+							tempMin = Math.abs(n.margin);
+						}
+					}
+					for(Node n: Layer)
+					{
+						if(Math.abs(n.margin)==tempMin)
+						{
+							q.offer(n);
+						}
+					}
+				}
+				cur  =q.peek();
 			}
 		}
+		min = Long.MAX_VALUE;
+		while (!q.isEmpty())
+		{
+			cur =q.poll();
+			if(Math.abs(cur.margin)<min)
+			{
+				min = Math.abs(cur.margin);
+			}
+		}
+		 
 		
 		return empty;
 	}
-	void getMin(Node start, long pre)
-	{
-		if(start.sons.size()==0)
-		{
-			long rt = pre + start.v*tens(start.dep);
-			if(Math.abs(A-rt)<min) 
-			{
-				min =  Math.abs(A-rt);
-				//System.out.println(rt);
-			}
-			return ;
-		}
-		for(Node s: start.sons)
-		{
-			getMin(s,pre+start.v*tens(start.dep));
-		}
-		
-		
-	}
-	int answer()
+	
+	long answer()
 	{
 		Node start = this.createTree();
 		if(start.sons.size()==0) return 0;
-		getMin(start, 0);
-		return (int)min;
+//		System.out.println(A+min);
+//		System.out.println(A-min);
+//		
+		return min;
 	}
 	
     public static void main(String[] args){
@@ -169,4 +243,9 @@ public class Main{
 	    System.out.println( m.answer());
     }
 }
+
+//987654321987639 2
+//
+//100000000000000 1
+//1
 
