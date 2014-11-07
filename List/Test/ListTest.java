@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import MyList.MyList;
+import MyList.SingleList;
 public class ListTest {
 	MyList<Integer> il;
 	MyList<String> sl;
@@ -16,11 +17,11 @@ public class ListTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		il = new MyList<Integer>();
+		il = new SingleList<Integer>();
 		int [] v= {1,2,3,9,5,8};
 		for(int i:v) {il.insert(i);testInt.add(i);}
 		
-		sl = new MyList<String>();
+		sl = new SingleList<String>();
 		String [] strs = {"hello","nice","nee you","mei guo"};
 		for(String s:strs) {sl.insert(s);testStr.add(s);}		
 	}
