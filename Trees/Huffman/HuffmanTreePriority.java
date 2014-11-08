@@ -8,10 +8,31 @@ import java.util.PriorityQueue;
 
 import basic.HuffmanNode;
 
-public class HuffmanTreePriority extends HuffmanTree{
+public class HuffmanTreePriority {
 	
-	
-	public PriorityQueue<HuffmanNode> init2(String s)
+	HashMap<Character,String> charList= new HashMap<Character,String>();
+	HuffmanNode root;
+	//统计每个字符出现的次数
+	public HashMap<Character, Integer> converWord(String s)
+	{
+		HashMap<Character, Integer>  h = new HashMap<Character, Integer>();
+			
+		for(int i=0;i<s.length();i++)
+		{
+			char temp = s.charAt(i);
+			if(h.containsKey(temp))
+			{
+				int v = h.get(temp)+1;
+				h.put(temp, v) ;
+				
+			}else{
+			h.put(temp, 1);}
+		}
+		
+		return h;
+	}
+	//插入优先队列
+	public PriorityQueue<HuffmanNode> init(String s)
 	{
 		PriorityQueue<HuffmanNode> pq = new PriorityQueue<HuffmanNode>(11,new Comparator<HuffmanNode>() {
 			public int compare(HuffmanNode h1,HuffmanNode h2)
@@ -30,7 +51,8 @@ public class HuffmanTreePriority extends HuffmanTree{
 		}
 		return pq;
 	}
-	public void createTree2(PriorityQueue<HuffmanNode> words)
+	//拿到两个最小的合成新的结点，加入到队列中去
+	public void createTree(PriorityQueue<HuffmanNode> words)
 	{
 		
 		if(words.size()==1) return;
@@ -40,28 +62,44 @@ public class HuffmanTreePriority extends HuffmanTree{
 		n.left = f;
 		n.right = s;
 		words.offer(n);
-		createTree2(words);
+		createTree(words);
+	}
+	//获取每个字符的编码
+	public void encodeChar(HuffmanNode root,String Code)
+	{
+		if(root.isLeaf())
+		{
+			assert(root.Value.length()==1);
+			charList.put(root.Value.toCharArray()[0], Code);
+			return;
+		}
+		//向左添加0
+		encodeChar(root.left,Code+"0");
+		//向右添加1
+		encodeChar(root.right,Code+"1");
 	}
 	public void prepareEncode(String s)
 	{
 		//input
-		PriorityQueue<HuffmanNode> words = init2(s);
-		//树的创建
-		createTree2(words);
+		PriorityQueue<HuffmanNode> words = init(s);
+		//树的创建，最后变为size为1的 队列，内容即为root
+		createTree(words);
 		HuffmanNode root =  words.poll();
+		
+		//给每一个元素赋值
 		encodeChar(root, "");
+		
 		this.root = root;
 	}
 	public String encode(String s)
 	{
 		if(charList.isEmpty()) this.prepareEncode(s);
-		String rt = "";
+		StringBuffer rt = new StringBuffer();
 		for(int i=0;i<s.length();i++)
 		{
-			String key = Character.toString(s.charAt(i));
-			rt += charList.get(key);
+			rt.append(charList.get(s.charAt(i)));
 		}
-		return rt;
+		return rt.toString();
 	}
 	public String res = "";
 	public void clear()
@@ -88,20 +126,16 @@ public class HuffmanTreePriority extends HuffmanTree{
 			decode(code.substring(1),root.right);
 		}
 	}
+	public void showCharList()
+	{
+		for(Iterator<Character> i = charList.keySet().iterator();i.hasNext();)
+		{
+			Character key = i.next();
+			String Value = charList.get(key);
+			System.out.println(key+"  "+Value);
+		}
+	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		HuffmanTreePriority ht = new HuffmanTreePriority();
-		String text = "beep boop beer!";
 		
-		ht.prepareEncode(text);
-		ht.showCharList();
-		
-		//编码解码
-		String code = ht.encode(text);		
-		System.out.println(code);
-		
-		ht.clear();
-		ht.decode(code,ht.root);
-		System.out.println(ht.res);
 	}
 }
