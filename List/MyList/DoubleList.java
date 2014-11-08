@@ -60,12 +60,8 @@ public class DoubleList<E> extends MyList<E>{
 	@Override
 	public void update(int index, E value) {
 		// TODO Auto-generated method stub
-		if(size==0 || index>=size) return ;
-		if(index<0) return;
-		int i=0;
-		Node<E> cur= head;
-		while(i++<index){cur = cur.next;}
-		cur.Value = value;
+		Node<E> cur= get(index);
+		if(cur!=null) cur.Value = value;
 	}
 
 	@Override

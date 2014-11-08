@@ -27,9 +27,7 @@ public abstract class MyList<E> {
 
 	//insert before index
 	public abstract void insert(E value, int index);
-	//update value by index
-	public abstract void update(int index, E value);
-		 
+	
 		
 	//delete
 	//delete by index
@@ -56,7 +54,7 @@ public abstract class MyList<E> {
 	{
 		if(head ==null) return head;
 		Node<E> cur = head;
-	 	while(cur!=null && cur.Value!=object)
+	 	while(cur!=null && cur.Value.equals(object))
 		{
 		  cur = cur.next;
 		}
@@ -67,7 +65,14 @@ public abstract class MyList<E> {
 	{
 		return find(index);
 	}
- 
+	//update value by index
+	public void update(int index, E value) {
+		// TODO Auto-generated method stub
+		Node<E> cur= get(index);
+		if(cur!=null) cur.Value = value;
+	}
+	
+	//输出检查
 	public String toString()
 	{
 		String res ="[";
@@ -95,7 +100,7 @@ public abstract class MyList<E> {
 	}
 	
  
-	 
+	//反响判断
 	public boolean equalReverseList(List<E> l)
 	{
 		if(l.size()!=size) return false;
