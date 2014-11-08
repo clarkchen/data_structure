@@ -81,17 +81,35 @@ public abstract class MyList<E> {
 	//for test
 	public boolean equalsList(List<E> values)
 	{
+		
 		if(values.size()!=size) return false;
 		Node<E> cur = head;
+		
 		for(int i=0;i<values.size();i++)
 		{
-			if(cur.Value!=values.get(i)) return false;
+			if(!values.get(i).equals(cur.Value)) return false;
+				 
 			cur = cur.next;
 		}
 		return true;
 	}
 	
-	
+ 
 	 
+	public boolean equalReverseList(List<E> l)
+	{
+		if(l.size()!=size) return false;
+		if(size==0) return true;
+		Node<E> cur = tail;
+		for(int i=size-1;i>=0;i--,cur=cur.pre)
+		{
+			if(!l.get(i).equals(cur.Value)) return false;
+		}
+		return true;
+	}
+	
+	public static void main(String[] args)
+	{ 
+	}
 
 }

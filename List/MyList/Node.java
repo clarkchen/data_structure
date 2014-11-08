@@ -15,6 +15,7 @@ public class Node<E> {
 	{
 		this.Value = v;
 		next = null;
+		pre = null;
 	}
 	
 }
