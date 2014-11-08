@@ -57,12 +57,7 @@ public class DoubleList<E> extends MyList<E>{
 		}
 	}
 
-	@Override
-	public void update(int index, E value) {
-		// TODO Auto-generated method stub
-		Node<E> cur= get(index);
-		if(cur!=null) cur.Value = value;
-	}
+	
 
 	@Override
 	public void delete(int index) {

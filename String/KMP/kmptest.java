@@ -17,12 +17,13 @@ public class kmptest {
 			}
 			
 			else
-			{
+			{ 
 				j = next[j];	
 			}
 		}
 	}
-	public Boolean runmkp(String s, String t)
+	
+	public Boolean KMP(String s, String t)
 	{
 		int [] next = new int[t.length()];
 		Boolean in = false;
@@ -48,19 +49,7 @@ public class kmptest {
 		return in;
 	}
 	
-	String[] s1 = new String[]{"babcedf","abcdababeabc"};
-	String[] t1 =  new String[]{"ce","abab"};
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		kmptest kt = new kmptest();
-		int index = 0;
-		
-		String s = kt.s1[index];
-		String t = kt.t1[index];
-		
-		System.out.println(kt.runmkp(s, t));
-		
-	}
+	
+ 
 
 }
