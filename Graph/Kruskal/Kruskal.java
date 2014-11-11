@@ -5,6 +5,11 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 import basic.Edge;
 
+/**
+ * @author chenxi
+ * Kruskal 算法和点完全没有关系了，直接就是边的情况处理，在针对边多点少的情况下应该是最正确的选择
+ * 
+ */
 public class Kruskal {
 	public int Find(int f, int []parent)
 	{
@@ -30,13 +35,10 @@ public class Kruskal {
 				return h1.weight-h2.weight;
 			}
 		});
-		for(Iterator< Edge> i = g.edges.iterator();i.hasNext();)
-		{
-			Edge edge = i.next();
-			edges.offer(edge);
-		}
-		return edges;
+		for(Edge edge: g.edges) edges.offer(edge);
+	 	return edges;
 	}
+	
 	public kGraph runKruskal(kGraph g)
 	{
 		kGraph rt = new kGraph(g.count);
@@ -45,7 +47,7 @@ public class Kruskal {
 	
 		PriorityQueue<Edge> edges = this.getPQ(g);
 		Edge e =null;
-		 int i=0;
+		int i=0;
 		while(!edges.isEmpty()){
 			
 			e = edges.poll();
@@ -53,38 +55,11 @@ public class Kruskal {
 			if(this.Union(parent, e.s, e.e) ==false){
 				continue;
 			}
-			System.out.print(i++); 
-			rt.addEdge(e);
-			
+ 			rt.addEdge(e);			
 		}
 		return rt;
 	}
-	public static kGraph init(int vertexNum)
-	{
-		kGraph G = new kGraph(vertexNum);
+	 
 
-		G.addEdge(0, 1,10);
-		G.addEdge(0, 5, 11);
-		G.addEdge(1, 2, 18);
-		G.addEdge(1, 6, 16);
-		G.addEdge(1, 8, 12);
-		G.addEdge(2, 3, 22);
-		G.addEdge(2, 8, 8);
-		G.addEdge(3, 4, 20);
-		G.addEdge(3, 7, 16);
-		G.addEdge(3, 8, 21);
-		G.addEdge(4, 5,26);
-		G.addEdge(4, 7,7);
-		G.addEdge(5, 6, 17);
-		G.addEdge(6, 7, 19);
-		return G;
-	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		kGraph g =  Kruskal.init(9);
-		Kruskal k = new Kruskal();
-		g = k.runKruskal(g);
-		g.printEdges();
-	}
 
 }
