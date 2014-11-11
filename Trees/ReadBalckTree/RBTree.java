@@ -124,17 +124,17 @@ public class RBTree {
 		return cur;
 	}
 	//find the node to replace the cur and we focused on the effects for the new node
-	//only find the replace node from right tree ,if there is no right tree 
+	//only find the replace node from left tree ,if there is no left tree 
 	//cur also meets the condition that node to delete has only one branch
 	RBNode replaceNode(RBNode cur)
 	{
 		RBNode temp = null;
-		if(cur.right.value!=null)
+		if(cur.left.value!=null)
 		{
-			temp = cur.right;
-			while(temp.left.value!=null)
+			temp = cur.left;
+			while(temp.right.value!=null)
 			{
-				temp  = temp.left;
+				temp  = temp.right;
 			}
 		}
 		if(temp==null)
