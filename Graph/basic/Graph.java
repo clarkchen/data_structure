@@ -28,6 +28,10 @@ public class Graph {
 	{
 		this.visited = new int[count];
 	}
+	public int getEdgeWeight(int a, int b)
+	{
+		return AdjacentMatrix[a][b];
+	}
 	public void addEdge(int a, int b)
 	{
 		AdjacentMatrix[a][b] = AdjacentMatrix[b][a] = 1;
