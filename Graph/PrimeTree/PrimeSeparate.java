@@ -4,84 +4,72 @@ import Dijskra.DijskraShortPath;
 import basic.Graph;
 
 import java.util.*;
-public class Prime {
-	
-	 
-	//input the edges
-	public static Graph init()
-	{
-		int vertexNum=9;
-		Graph G = new Graph(vertexNum);
 
-		G.addEdge(0, 1,10);
-		G.addEdge(0, 5, 11);
-		G.addEdge(1, 2, 18);
-		G.addEdge(1, 6, 16);
-		G.addEdge(1, 8, 12);
-		
-		G.addEdge(2, 3, 22);
-		G.addEdge(2, 8, 8);
-		
-		G.addEdge(3, 4, 20);
-		G.addEdge(3, 7, 16);
-		G.addEdge(3, 8, 21);
-		G.addEdge(3, 6, 24);
-		
-		G.addEdge(4, 5,26);
-		G.addEdge(4, 7,7);
-		G.addEdge(5, 6, 17);
-		G.addEdge(6, 7, 19);
-		return G;
-	}
-	public void add(int iB ,int[] B,int []pre, Graph rt )
+
+/**
+ * @author chenxi
+ * Prime Tree 分步编程, 将Prime算法分开写成了三个步骤，思路较为清晰
+ * 但是时间复杂度上变成了 2*N
+ * 
+ */
+public class PrimeSeparate {
+	//put the selected node into the new graph, and set the dis to be 0
+	public void add(int i ,int[] dis,int []pre, Graph rt )
 	{
 		//the first one
-		if(iB>0) rt.addEdge(iB, pre[iB],B[iB]);
-		B[iB] = 0;
+		if(i>0) rt.addEdge(i, pre[i],dis[i]);
+		dis[i] = 0;
 	}
-	protected void update(int n, int []B, Graph G, int []pre)
+	
+	//uupdate the distance of related nodes and the reference node 
+	protected void update(int n, int []dis, Graph G, int []pre)
 	{
-		 
-		 for(int i =0;i<B.length;i++)
+		int foo ;
+		 for(int i =0;i<dis.length;i++)
 		 {
-			 if(i==n||B[i]==0) continue;
-			 int dis = G.AdjacentMatrix[n][i];
-			 if(dis > 0 && B[i]> dis)
+			 if(i==n||dis[i]==0||G.AdjacentMatrix[n][i]==0) continue;
+			 //if foo ==0 means that  n and are not connected 
+			 foo = G.AdjacentMatrix[n][i];
+			 
+			 if( dis[i] > foo)
 			 {
-				 B[i] = dis;
+				 dis[i] = foo;
 				 pre[i] = n;
 			 }
 		 }
 	}
-	protected int findMin(int []B)
+	
+	//find the least distance 
+	protected int findMin(int []dis)
 	{
 		int min = Integer.MAX_VALUE;
-		for(int i =0;i<B.length;i++)
+		for(int i =0;i<dis.length;i++)
 		{
-			if(B[i]==0) continue;
+			//already in 
+			if(dis[i]==0) continue;
+			
 			if(min==Integer.MAX_VALUE) min = i;
-			if(B[min]>B[i])
+			if(dis[min]>dis[i])
 			{
 				min = i;
 			}
 		}
-		
 		return min;
-		
 	}
+	
 	public Graph runPrime(Graph G)
 	{
 		if(G==null || G.count==0)return null;
 		if(G.count<3) return G;
 		
-		//Init Set and its value means the lenght to set A;
-		int [] B =  new int[G.count];
+		//Init Set and its value means the distance to set A;
+		int [] dis =  new int[G.count];
 		//If the value is not -1 and it means the node absorb it into A with the minimum lenght 
 		int [] pre = new int[G.count];
 		Graph rt = new Graph(G.count);
 		for(int i=0;i<G.count;i++)
 		{
-			B[i] =Integer.MAX_VALUE;
+			dis[i] =Integer.MAX_VALUE;
 
 			pre [i] = -1;
 		}
@@ -92,24 +80,16 @@ public class Prime {
 		while(count>0)
 		{
 			
-			this.add(n, B, pre,rt);
+			this.add(n, dis, pre,rt);
 			 
-			this.update(n, B, G, pre);
+			this.update(n, dis, G, pre);
 			 
-			n = this.findMin(B);
+			n = this.findMin(dis);
 			
 			count--;
 		}
 		return rt;
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Prime p = new Prime();
-//		Graph G = p.init(9);
-		Graph G = DijskraShortPath.init();
-		G = p.runPrime(G);
-		G.printEdges();
-		
-	}
+ 
 
 }

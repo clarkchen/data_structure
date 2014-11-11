@@ -3,7 +3,12 @@ package PrimeTree;
 import Dijskra.DijskraShortPath;
 import basic.Graph;
 
-public class PrimeV2 {
+/**
+ * @author chenxi
+ *  聚合类写法将距离更新和找寻最小值写在了一起了，时间复杂度比较与之前的，一个是N一个是 2N，下面这个更好一点
+ *  
+ */
+public class Prime {
 	public Graph runPrime(Graph g)
 	{
 		Graph rt  = new Graph(g.count);
@@ -38,13 +43,6 @@ public class PrimeV2 {
 		}while(cur!=Integer.MAX_VALUE);
 		return rt;
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		PrimeV2 p = new PrimeV2();
- 		Graph G = Prime.init();
-		 
- 		Graph rt = p.runPrime(G);
-		rt.printEdges();
-	}
+	 
 
 }
