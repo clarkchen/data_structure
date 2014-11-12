@@ -22,18 +22,13 @@ import basic.Edge;
 public class Kruskal {
 	public int Find(int f, int []parent)
 	{
-		if (f!=parent[f]) {
-			 parent[f] = Find(parent[f],parent);
-		}
-		return parent[f];
+		return f!=parent[f]?parent[f] = Find(parent[f],parent): parent[f];
 	}
 	public Boolean Union(int []parent, int f, int s)
 	{
-		int father=  Find(f,parent);
-		int son =Find(s,parent) ;
+		int father=  Find(f,parent),son =Find(s,parent);
 		if( father == son ) return false;
-		parent[son] = father; 
-		return true;
+		parent[son] = father; return true;
 	}
 	
 	protected PriorityQueue<Edge> getPQ(kGraph g)
@@ -57,14 +52,18 @@ public class Kruskal {
 		PriorityQueue<Edge> edges = this.getPQ(g);
 		Edge e =null;
 		int i=0;
+		int edgeCount =0;
 		while(!edges.isEmpty()){
+			
+			if(edgeCount++==g.count-1) break;
 			
 			e = edges.poll();
 			
 			if(this.Union(parent, e.s, e.e) ==false){
 				continue;
 			}
- 			rt.addEdge(e);			
+ 			rt.addEdge(e);	
+ 			
 		}
 		return rt;
 	}

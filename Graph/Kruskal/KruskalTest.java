@@ -7,6 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import basic.Edge;
+import basic.EdgePoint;
+import basic.Graph;
+import basic.GraphList;
+import basic.GraphPoint;
 public class KruskalTest {
 	kGraph G;
 	@Before
@@ -57,6 +61,10 @@ public class KruskalTest {
 		kGraph g = k.runKruskal(G);
 		g.printEdges();
 		assertTrue(Validate(g));
+		System.out.println();
 	}
+	
+	 
+
 
 }
