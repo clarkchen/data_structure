@@ -11,7 +11,7 @@ public class GraphList {
 	//each element is just a GraphPoint 
 	//The linked list is a varable of GraphPoint
 	public ArrayList<GraphPoint> AdjecentList=null;
-	int [] visited =  null;
+	public int [] visited =  null;
 	public int count = 0;
 	
 	//public int edgeCount = 0;
@@ -162,7 +162,18 @@ public class GraphList {
 			}
 		}
 	}
-	
+	public void printEdges()
+	{
+		for(GraphPoint gp: AdjecentList)
+		{
+			EdgePoint ep = gp.firstEdge;
+			while(ep!=null)
+			{
+				System.out.println("Node "+gp.index+" Node "+ep.index+" Edge "+ep.weight);
+				ep = ep.next;
+			}
+		}
+	}
 	public static void main(String [] args)
 	{
 		GraphList gl = new GraphList(5);
