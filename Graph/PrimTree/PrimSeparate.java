@@ -1,6 +1,6 @@
-package PrimeTree;
+package PrimTree;
 
-import Dijskra.DijskraShortPath;
+import Dijkstra.DijkstraShortPath;
 import basic.Graph;
 
 import java.util.*;
@@ -8,11 +8,11 @@ import java.util.*;
 
 /**
  * @author chenxi
- * Prime Tree 分步编程, 将Prime算法分开写成了三个步骤，思路较为清晰
+ * Prim Tree 分步编程, 将Prime算法分开写成了三个步骤，思路较为清晰
  * 但是时间复杂度上变成了 2*N
  * 
  */
-public class PrimeSeparate {
+public class PrimSeparate {
 	//put the selected node into the new graph, and set the dis to be 0
 	public void add(int i ,int[] dis,int []pre, Graph rt )
 	{

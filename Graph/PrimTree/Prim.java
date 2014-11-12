@@ -1,6 +1,6 @@
-package PrimeTree;
+package PrimTree;
 
-import Dijskra.DijskraShortPath;
+import Dijkstra.DijkstraShortPath;
 import basic.Graph;
 
 /**
@@ -13,7 +13,7 @@ import basic.Graph;
  *  3. 更新完成之后挑选最小的点 min，将 p,min 放入新图，min作为新的p点，回到步骤1
  *  
  */
-public class Prime {
+public class Prim {
 	public Graph runPrime(Graph g)
 	{
 		Graph rt  = new Graph(g.count);

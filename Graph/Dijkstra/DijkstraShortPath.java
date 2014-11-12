@@ -1,10 +1,10 @@
-package Dijskra;
+package Dijkstra;
 
 import basic.Graph;
 
 /**
  * @author chenxi
- * Dijskra 是单源最短路劲算法，也就是指定起点，然后求其他各个点到他的距离
+ * Dijkstra 是单源最短路劲算法，也就是指定起点，然后求其他各个点到他的距离
  * 这部分代码，求解完最短距离之后，放到了 dis 数组中，并且产生 以最短距离为边的 一个新图
  * 
  * 需要的额外数据，Dis，Visited，Pre（用于建立图，方便回溯输出路径）
@@ -14,7 +14,7 @@ import basic.Graph;
  * 3. 选取最小的点min，k,min 加入新图，min作为新的k点 回到步骤1
  * 
  */
-public class DijskraShortPath {
+public class DijkstraShortPath {
 	int []dis;
  	public Graph shortestPath(int source,Graph g)
 	{

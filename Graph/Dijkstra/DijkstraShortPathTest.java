@@ -1,4 +1,4 @@
-package Dijskra;
+package Dijkstra;
 import static org.junit.Assert.*;
 
 import java.util.*;
@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import basic.Graph;
-public class DijskraShortPathTest {
+public class DijkstraShortPathTest {
 	Graph g ;
 	@Before
 	public void setUp() throws Exception {
@@ -45,7 +45,7 @@ public class DijskraShortPathTest {
 	}
 	@Test
 	public void test() {
-		DijskraShortPath dsp = new DijskraShortPath();
+		DijkstraShortPath dsp = new DijkstraShortPath();
 		Graph rt =  dsp.shortestPath(0, g);
 		rt.printEdges();
 		for(int i:dsp.dis)	System.out.print(i+" ");

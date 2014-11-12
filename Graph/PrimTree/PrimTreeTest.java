@@ -1,4 +1,4 @@
-package PrimeTree;
+package PrimTree;
 import static org.junit.Assert.*;
 
 import java.util.*;
@@ -14,7 +14,7 @@ import basic.Graph;
  * @author chenxi
  * Prime Tree 测试脚本
  */
-public class PrimeTreeTest {
+public class PrimTreeTest {
 	Graph G;
 	@Before
 	public void setUp() throws Exception {
@@ -57,12 +57,12 @@ public class PrimeTreeTest {
 	@Test
 	public void test() {
 		// TODO Auto-generated method stub
-		Prime p2 = new Prime();
+		Prim p2 = new Prim();
 		Graph rt = p2.runPrime(G);
 		//rt.printEdges();
 		assertTrue(validate(rt));
 		
-		PrimeSeparate p = new PrimeSeparate();
+		PrimSeparate p = new PrimSeparate();
 		rt = p.runPrime(G);
 		assertTrue(validate(rt));
 	}
