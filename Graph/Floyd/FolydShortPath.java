@@ -1,7 +1,6 @@
 package Floyd;
 
-import Dijskra.DijskraShortPath;
-import basic.Graph;
+ import basic.Graph;
 
 /**
  * @author chenxi
@@ -21,7 +20,8 @@ import basic.Graph;
  * http://zh.wikipedia.org/zh-cn/弗洛伊德算法   
  * D_{i,j,k}  = D_{i,k,k-1} + D{k,j,k-1}
  * 
- * Path[i][j] 表示 i 到 j ，j 前一位是多少，所以在原图上，如果相邻就设置为i，否则就是-1
+ * Path[i][j] 表示 i 到 j ，j 前
+ * 一位是多少，所以在原图上，如果相邻就设置为i，否则就是-1
  * 
  */
 public class FolydShortPath {
