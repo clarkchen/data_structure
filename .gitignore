@@ -3,3 +3,7 @@
 .project
 bin/*
 bin
+.idea/*
+target/*
+data_structure.iml
+*.png
