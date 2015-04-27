@@ -7,3 +7,4 @@ bin
 target/*
 data_structure.iml
 *.png
+!test

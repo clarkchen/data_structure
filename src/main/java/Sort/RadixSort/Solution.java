@@ -9,13 +9,27 @@ public class Solution {
     //例如  (1345,0) 则返回的时 5 ,(1345, 1) 则返回的时 4
     int getValueFromIndex(int value, int index)
     {
-         for(int i=0;i<index && value >0; i++)
-       {
-           value = value/10;
-       }
-       return  value %10;
+        int divider  =  (int)Math.pow(10, index) ;
+        return  (value/divider) %10;
     }
 
+    int getMaxDigits(int []values)
+    {
+        int max = 0;
+        for (int v: values)
+        {
+            assert v>=0;
+            max =  max< v? v:max;
+        }
+        int rt = 0;
+        while(max>0)
+        {
+            max /=10;
+            rt++;
+        }
+        return rt;
+
+    }
     void sort(int[] values)
     {
         MyList[] lists = new MyList [10];
@@ -29,12 +43,10 @@ public class Solution {
 
         //表示从现在正在检验的位数
         int index = 0;
+        int maxD = getMaxDigits(values);
         //如果  lists[0] 上集中了全部的元素,则排序结束
-        boolean isNotFinish = true;
-        while(isNotFinish)
+        for (;index<maxD;index++)
         {
-
-            isNotFinish = false;
             //values 进入 链表数组 lists
             //遍历数组的一种特殊用法, 依次遍历 values 中的每一个元素
             for (int v : values)
@@ -43,11 +55,8 @@ public class Solution {
                 int list_index = slu.getValueFromIndex(v, index);
                 //按照数字找到 对应的 list 进行插入
                 lists[list_index].inserFromTail(v);
-                if (!isNotFinish && list_index>0) isNotFinish = true;
             }
 
-            //除了0以外的其他 lists 元素上没有数据了,表示排序已经完成
-            if (!isNotFinish) break;
 
             //链表数组 填充 values数组
             for(int i=0, j=0;i<lists.length;i++)
@@ -63,7 +72,7 @@ public class Solution {
                     j++;
                 }
             }
-            index += 1;
+
         }
 
     }
