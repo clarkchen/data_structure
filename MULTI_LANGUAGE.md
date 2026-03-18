@@ -1,6 +1,6 @@
 # 多语言扩展说明（Java / TypeScript / Python / Golang / Rust）
 
-当前仓库以 Java 为主（`src/main/java`）。
+当前仓库以 Java 为主（`java/src/main/java`）。
 目前已新增：
 - 线性结构（栈 / 队列）
 - 排序与查找（快速排序 / 二分查找）
@@ -15,8 +15,9 @@
 
 - Java（已有，主实现）
   - 入口文档：`java/README.md`
-  - 代码目录：`src/main/java`
-  - 测试目录：`src/test/java`
+  - 代码目录：`java/src/main/java`
+  - 测试目录：`java/src/test/java`
+  - Maven 文件：`java/pom.xml`
 - TypeScript
   - `ts/src/stack.ts`
   - `ts/src/queue.ts`
@@ -36,6 +37,7 @@
 
 ## 快速验证（示例）
 
+- Java: `cd java && mvn test`
 - Python: `cd python && python3 -m unittest -q test_extra.py`
 - Golang: `cd golang && go test ./...`
 - Rust: `cd rust && cargo test`

@@ -2,8 +2,9 @@
 
 本仓库 Java 实现位于：
 
-- `src/main/java`
-- 对应测试：`src/test/java`
+- `java/src/main/java`
+- 对应测试：`java/src/test/java`
+- Maven 配置：`java/pom.xml`
 
 ## 已有覆盖（Java）
 
@@ -19,6 +20,7 @@
 > 依赖 JDK + Maven 环境
 
 ```bash
+cd java
 mvn clean test
 ```
 

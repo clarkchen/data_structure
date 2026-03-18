@@ -30,33 +30,38 @@ cd data_structure
 ### 2. 编译项目
 
 ```bash
+cd java
 mvn clean compile
 ```
 
 ### 3. 运行测试
 
 ```bash
+cd java
 mvn test
 ```
 
 ### 4. 打包
 
 ```bash
+cd java
 mvn package
 ```
 
 ## 项目结构
 
 ```
-src/
-├── main/java/
-│   ├── Graph/          # 图论算法
-│   ├── List/           # 链表
-│   ├── Search/         # 查找算法
-│   ├── Sort/           # 排序算法
-│   ├── String/         # 字符串算法
-│   └── Trees/          # 树结构
-└── test/java/          # 单元测试
+java/
+├── pom.xml
+└── src/
+    ├── main/java/
+    │   ├── Graph/          # 图论算法
+    │   ├── List/           # 链表
+    │   ├── Search/         # 查找算法
+    │   ├── Sort/           # 排序算法
+    │   ├── String/         # 字符串算法
+    │   └── Trees/          # 树结构
+    └── test/java/          # 单元测试
 ```
 
 ## 算法列表
@@ -122,7 +127,7 @@ src/
 
 当前已统一为五种语言：Java / TypeScript / Python / Golang / Rust。
 
-- Java 主实现：`src/main/java`（入口说明：`java/README.md`）
+- Java 主实现：`java/src/main/java`（入口说明：`java/README.md`）
 - 多语言总览：`MULTI_LANGUAGE.md`
 
 ## 许可证
