@@ -13,9 +13,10 @@
 
 ## 目录
 
-- Java（已有）
-  - `src/main/java/List/Linear/ArrayStack.java`
-  - `src/main/java/List/Linear/ArrayQueue.java`
+- Java（已有，主实现）
+  - 入口文档：`java/README.md`
+  - 代码目录：`src/main/java`
+  - 测试目录：`src/test/java`
 - TypeScript
   - `ts/src/stack.ts`
   - `ts/src/queue.ts`

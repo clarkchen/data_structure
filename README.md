@@ -120,9 +120,10 @@ src/
 
 ## 多语言扩展
 
-已新增多语言线性结构基础实现（Java / TypeScript / Python / Golang / Rust），详见：
+当前已统一为五种语言：Java / TypeScript / Python / Golang / Rust。
 
-- `MULTI_LANGUAGE.md`
+- Java 主实现：`src/main/java`（入口说明：`java/README.md`）
+- 多语言总览：`MULTI_LANGUAGE.md`
 
 ## 许可证
 
