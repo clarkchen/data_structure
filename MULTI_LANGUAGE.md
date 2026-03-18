@@ -4,8 +4,11 @@
 目前已新增：
 - 线性结构（栈 / 队列）
 - 排序与查找（快速排序 / 二分查找）
+- 字符串（KMP）
+- 树（BST / 堆）
+- 图（Dijkstra / 拓扑排序）
 
-并提供多语言示例，后续可继续扩展到树、图。
+已覆盖 Java / TypeScript / Python / Golang / Rust 的基础实现。
 
 ## 目录
 
@@ -24,10 +27,10 @@
 
 ## 后续建议扩展顺序
 
-1. 树（AVL、红黑树、堆）
-2. 图（Dijkstra、Floyd、Prim、Kruskal）
-3. 字符串（KMP）
-4. 更完整测试与基准（benchmark）
+1. 进阶树结构（AVL、红黑树）
+2. 进阶图算法（Floyd、Prim、Kruskal、SPFA）
+3. 每种语言补测试与 benchmark
+4. 增加统一的题目示例与复杂度说明
 
 ## 设计原则
 
