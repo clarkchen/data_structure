@@ -1,4 +1,5 @@
 pub mod graph;
+pub mod graph_extra;
 pub mod string;
 pub mod tree;
 
@@ -166,6 +167,21 @@ mod tests {
         h.push(1);
         h.push(3);
         assert_eq!(h.pop(), Some(1));
+    }
+
+    #[test]
+    fn graph_extra_should_work() {
+        let g = vec![vec![(1, 2), (2, 5)], vec![(0, 2), (2, 1)], vec![(0, 5), (1, 1)]];
+        let (w, c) = crate::graph_extra::prim(3, &g, 0);
+        assert_eq!(c, 3);
+        assert_eq!(w, 3);
+
+        let dist = crate::graph_extra::spfa(3, &g, 0);
+        assert_eq!(dist[2], 3);
+
+        let mut dsu = crate::graph_extra::Dsu::new(3);
+        assert!(dsu.union(0, 1));
+        assert!(!dsu.union(0, 1));
     }
 }
 
