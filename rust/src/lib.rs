@@ -1,3 +1,7 @@
+pub mod graph;
+pub mod string;
+pub mod tree;
+
 pub struct Stack<T> {
     data: Vec<T>,
 }
@@ -140,4 +144,28 @@ mod tests {
         assert_eq!(binary_search(&sorted, 4), 3);
         assert_eq!(binary_search(&sorted, 9), -1);
     }
+
+    #[test]
+    fn kmp_should_work() {
+        assert_eq!(crate::string::kmp_search("ababcabcacbab", "abcac"), 5);
+        assert_eq!(crate::string::kmp_search("hello", "world"), -1);
+    }
+
+    #[test]
+    fn tree_and_heap_should_work() {
+        let mut root = None;
+        crate::tree::bst_insert(&mut root, 3);
+        crate::tree::bst_insert(&mut root, 1);
+        crate::tree::bst_insert(&mut root, 2);
+        let mut out = Vec::new();
+        crate::tree::inorder(&root, &mut out);
+        assert_eq!(out, vec![1, 2, 3]);
+
+        let mut h = crate::tree::MinHeap::new();
+        h.push(4);
+        h.push(1);
+        h.push(3);
+        assert_eq!(h.pop(), Some(1));
+    }
 }
+
