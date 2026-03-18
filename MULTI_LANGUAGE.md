@@ -6,7 +6,8 @@
 - 排序与查找（快速排序 / 二分查找）
 - 字符串（KMP）
 - 树（BST / 堆）
-- 图（Dijkstra / 拓扑排序 / Floyd / Kruskal）
+- 图（Dijkstra / 拓扑排序 / Floyd / Kruskal / Prim / SPFA）
+- 并查集（DSU）
 
 已覆盖 Java / TypeScript / Python / Golang / Rust 的基础实现。
 
