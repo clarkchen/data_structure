@@ -93,3 +93,22 @@ pub fn spfa(n: usize, g: &[Vec<(usize, i32)>], src: usize) -> Vec<i32> {
 
     dist
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn prim_spfa_dsu_basic() {
+        let g = vec![vec![(1, 2), (2, 5)], vec![(0, 2), (2, 1)], vec![(0, 5), (1, 1)]];
+        let (w, c) = prim(3, &g, 0);
+        assert_eq!((w, c), (3, 3));
+
+        let dist = spfa(3, &g, 0);
+        assert_eq!(dist[2], 3);
+
+        let mut dsu = Dsu::new(3);
+        assert!(dsu.union(0, 1));
+        assert!(!dsu.union(0, 1));
+    }
+}

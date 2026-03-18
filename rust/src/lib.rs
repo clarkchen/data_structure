@@ -68,7 +68,8 @@ impl<T> Queue<T> {
 pub fn quick_sort(nums: &[i32]) -> Vec<i32> {
     let mut arr = nums.to_vec();
     if !arr.is_empty() {
-        sort_impl(&mut arr, 0, (arr.len() - 1) as isize);
+        let last = (arr.len() - 1) as isize;
+        sort_impl(&mut arr, 0, last);
     }
     arr
 }

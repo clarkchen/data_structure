@@ -38,3 +38,14 @@ pub fn kmp_search(text: &str, pattern: &str) -> isize {
 
     -1
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn kmp_basic() {
+        assert_eq!(kmp_search("ababcabcacbab", "abcac"), 5);
+        assert_eq!(kmp_search("hello", "world"), -1);
+    }
+}
