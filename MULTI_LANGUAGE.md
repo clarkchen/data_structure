@@ -33,6 +33,13 @@
 3. 每种语言补测试与 benchmark
 4. 增加统一的题目示例与复杂度说明
 
+## 快速验证（示例）
+
+- Python: `cd python && python3 -m unittest -q test_extra.py`
+- Golang: `cd golang && go test ./...`
+- Rust: `cd rust && cargo test`
+- TypeScript: `cd ts && npm install && npm run check`
+
 ## 设计原则
 
 - API 名称尽量统一（push/pop/peek、offer/poll/peek）
