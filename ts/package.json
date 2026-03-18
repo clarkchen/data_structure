@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "check": "npm run build"
   },
   "devDependencies": {
     "typescript": "^5.9.2"
