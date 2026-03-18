@@ -60,6 +60,55 @@ impl<T> Queue<T> {
     }
 }
 
+pub fn quick_sort(nums: &[i32]) -> Vec<i32> {
+    let mut arr = nums.to_vec();
+    if !arr.is_empty() {
+        sort_impl(&mut arr, 0, (arr.len() - 1) as isize);
+    }
+    arr
+}
+
+fn sort_impl(arr: &mut [i32], left: isize, right: isize) {
+    if left >= right {
+        return;
+    }
+    let p = partition(arr, left, right);
+    sort_impl(arr, left, p - 1);
+    sort_impl(arr, p + 1, right);
+}
+
+fn partition(arr: &mut [i32], left: isize, right: isize) -> isize {
+    let pivot = arr[right as usize];
+    let mut i = left;
+    for j in left..right {
+        if arr[j as usize] <= pivot {
+            arr.swap(i as usize, j as usize);
+            i += 1;
+        }
+    }
+    arr.swap(i as usize, right as usize);
+    i
+}
+
+pub fn binary_search(arr: &[i32], target: i32) -> isize {
+    let mut left: isize = 0;
+    let mut right: isize = arr.len() as isize - 1;
+
+    while left <= right {
+        let mid = left + (right - left) / 2;
+        let val = arr[mid as usize];
+        if val == target {
+            return mid;
+        }
+        if val < target {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    -1
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -82,5 +131,13 @@ mod tests {
         assert_eq!(q.peek(), Some(&1));
         assert_eq!(q.poll(), Some(1));
         assert_eq!(q.poll(), Some(2));
+    }
+
+    #[test]
+    fn sort_and_search_should_work() {
+        let sorted = quick_sort(&[4, 2, 7, 1, 3]);
+        assert_eq!(sorted, vec![1, 2, 3, 4, 7]);
+        assert_eq!(binary_search(&sorted, 4), 3);
+        assert_eq!(binary_search(&sorted, 9), -1);
     }
 }
