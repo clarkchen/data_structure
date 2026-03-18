@@ -59,3 +59,48 @@ pub fn topological_sort(n: usize, g: &[Vec<usize>]) -> Vec<usize> {
 
     if order.len() == n { order } else { vec![] }
 }
+
+pub fn floyd_warshall(mat: &[Vec<i32>]) -> Vec<Vec<i32>> {
+    let n = mat.len();
+    let mut dist = mat.to_vec();
+    for k in 0..n {
+        for i in 0..n {
+            for j in 0..n {
+                if dist[i][k] + dist[k][j] < dist[i][j] {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+    }
+    dist
+}
+
+pub fn kruskal(n: usize, edges: &mut Vec<(usize, usize, i32)>) -> (i32, usize) {
+    let mut parent: Vec<usize> = (0..n).collect();
+
+    fn find(parent: &mut [usize], x: usize) -> usize {
+        if parent[x] != x {
+            let root = find(parent, parent[x]);
+            parent[x] = root;
+        }
+        parent[x]
+    }
+
+    edges.sort_by_key(|e| e.2);
+
+    let mut weight = 0;
+    let mut count = 0;
+    for &(u, v, w) in edges.iter() {
+        let ru = find(&mut parent, u);
+        let rv = find(&mut parent, v);
+        if ru != rv {
+            parent[ru] = rv;
+            weight += w;
+            count += 1;
+            if count == n - 1 {
+                break;
+            }
+        }
+    }
+    (weight, count)
+}
