@@ -22,7 +22,7 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/your-username/data_structure.git
+git clone https://github.com/clarkchen/data_structure.git
 cd data_structure
 ```
 
@@ -60,12 +60,14 @@ src/
 
 ## 算法列表
 
-### 🔗 链表 (List)
+### 🔗 线性结构 (List)
 
 | 算法 | 文件 |
 |------|------|
 | 单链表 | `List/MyList/SingleList.java` |
 | 双链表 | `List/MyList/DoubleList.java` |
+| 栈（数组实现） | `List/Linear/ArrayStack.java` |
+| 队列（循环数组实现） | `List/Linear/ArrayQueue.java` |
 
 ### 🔢 排序 (Sort)
 

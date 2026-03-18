@@ -52,9 +52,9 @@ public abstract class MyList<E> {
 	//Search by object
 	public Node<E> find (E object)
 	{
-		if(head ==null) return head;
+		if(head ==null) return null;
 		Node<E> cur = head;
-	 	while(cur!=null && cur.Value.equals(object))
+	 	while(cur!=null && !cur.Value.equals(object))
 		{
 		  cur = cur.next;
 		}
@@ -75,13 +75,16 @@ public abstract class MyList<E> {
 	//输出检查
 	public String toString()
 	{
-		String res ="[";
+		if(size==0) return "[]";
+		StringBuilder res = new StringBuilder("[");
 		Node<E> cur = head;
 		while(cur!=null){
-			res+=cur.Value+","; 
+			res.append(cur.Value).append(",");
 			cur = cur.next;
 		}
-		return res.substring(0,res.length()-1)+"]";
+		res.deleteCharAt(res.length()-1);
+		res.append("]");
+		return res.toString();
 	}
 	//for test
 	public boolean equalsList(List<E> values)
